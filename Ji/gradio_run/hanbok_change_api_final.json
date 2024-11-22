@@ -1,0 +1,178 @@
+{
+  "33": {
+    "inputs": {
+      "text": "A portrait of a Korean woman wearing green hanbok, over the shoulder, white background,",
+      "clip": [
+        "35",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "34": {
+    "inputs": {
+      "text": "sexual, hands",
+      "clip": [
+        "35",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "35": {
+    "inputs": {
+      "ckpt_name": "SDXL/dreamShaperXL_v21TurboDPMSDE.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "36": {
+    "inputs": {
+      "image": "cloth_change.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "37": {
+    "inputs": {
+      "seed": 524205856621406,
+      "steps": 50,
+      "cfg": 4,
+      "sampler_name": "dpmpp_2m_sde",
+      "scheduler": "karras",
+      "denoise": 0.9,
+      "model": [
+        "35",
+        0
+      ],
+      "positive": [
+        "33",
+        0
+      ],
+      "negative": [
+        "34",
+        0
+      ],
+      "latent_image": [
+        "90",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "44": {
+    "inputs": {
+      "samples": [
+        "37",
+        0
+      ],
+      "vae": [
+        "35",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "67": {
+    "inputs": {
+      "face": false,
+      "hair": false,
+      "hat": false,
+      "sunglass": false,
+      "left_arm": true,
+      "right_arm": true,
+      "left_leg": false,
+      "right_leg": false,
+      "upper_clothes": true,
+      "skirt": false,
+      "pants": false,
+      "dress": true,
+      "belt": false,
+      "shoe": false,
+      "bag": false,
+      "scarf": true,
+      "detail_method": "VITMatte",
+      "detail_erode": 12,
+      "detail_dilate": 6,
+      "black_point": 0.15,
+      "white_point": 0.99,
+      "process_detail": true,
+      "device": "cuda",
+      "max_megapixels": 2,
+      "image": [
+        "36",
+        0
+      ]
+    },
+    "class_type": "LayerMask: SegformerB2ClothesUltra",
+    "_meta": {
+      "title": "LayerMask: Segformer B2 Clothes Ultra"
+    }
+  },
+  "88": {
+    "inputs": {
+      "mask_grow": 50,
+      "mixed_precision": "fp16",
+      "seed": 475672299106710,
+      "steps": 40,
+      "cfg": 2.5,
+      "image": [
+        "36",
+        0
+      ],
+      "mask": [
+        "67",
+        1
+      ],
+      "refer_image": [
+        "44",
+        0
+      ]
+    },
+    "class_type": "CatVTONWrapper",
+    "_meta": {
+      "title": "CatVTON Wrapper"
+    }
+  },
+  "90": {
+    "inputs": {
+      "width": 1000,
+      "height": 1000,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "97": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "88",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  }
+}

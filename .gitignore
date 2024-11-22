@@ -1,0 +1,46 @@
+# Python 생성 파일
+__pycache__/
+*.py[cod]
+
+# 가상 환경
+venv/
+.venv/
+
+# Conda 환경
+env/
+.env/
+
+# Python 라이브러리
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Jupyter Notebook 체크포인트
+.ipynb_checkpoints/
+
+# 메타데이터
+*.pdb
+
+# Exclude folder
+comfy_env/
+ComfyUI_0.2.3/
+miniconda3/
+sej_comfy/
+gradio/
+path/
+Jun/
+
+.cache
+.config
+.cursor-server
+.docker
+.dotnet
+.gradio
+.ipython
+.keras
+.local
+.nv
+.transparent-background
+.triton
+.u2net

@@ -1,0 +1,2 @@
+SERVER_ADDRESS = "35.233.216.129:8188"
+COMFY_UI_PATH = "/home/eardream2/ComfyUI"

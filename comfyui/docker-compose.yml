@@ -1,0 +1,86 @@
+version: '3.8'
+services:
+  comfyui_user1:
+    build: ./docker  # Dockerfile이 있는 경로
+    container_name: comfyui_user1
+    ports:
+      - "8081:8188"  # 사용자 1을 위한 포트
+    volumes:
+      - ./comfyui_user1_data:/data  # 사용자 1의 데이터 저장소
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all  # 모든 GPU를 사용할 수 있도록 설정
+
+  comfyui_user2:
+    build: ./docker
+    container_name: comfyui_user2
+    ports:
+      - "8082:8188"  # 사용자 2를 위한 포트
+    volumes:
+      - ./comfyui_user2_data:/data  # 사용자 2의 데이터 저장소
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+
+  comfyui_user3:
+    build: ./docker
+    container_name: comfyui_user3
+    ports:
+      - "8083:8188"  # 사용자 3을 위한 포트
+    volumes:
+      - ./comfyui_user3_data:/data  # 사용자 3의 데이터 저장소
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+
+  comfyui_user4:
+    build: ./docker
+    container_name: comfyui_user4
+    ports:
+      - "8084:8188"  # 사용자 4를 위한 포트
+    volumes:
+      - ./comfyui_user4_data:/data  # 사용자 4의 데이터 저장소
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+
+  comfyui_user5:
+    build: ./docker
+    container_name: comfyui_user5
+    ports:
+      - "8085:8188"  # 사용자 5를 위한 포트
+    volumes:
+      - ./comfyui_user5_data:/data  # 사용자 5의 데이터 저장소
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+
+  comfyui_user6:
+    build: ./docker
+    container_name: comfyui_user6
+    ports:
+      - "8086:8188"  # 사용자 6을 위한 포트
+    volumes:
+      - ./comfyui_user6_data:/data  # 사용자 6의 데이터 저장소
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+

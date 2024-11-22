@@ -1,0 +1,96 @@
+{
+  "36": {
+    "inputs": {
+      "image": "cloth_change_stock.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "67": {
+    "inputs": {
+      "face": false,
+      "hair": false,
+      "hat": false,
+      "sunglass": false,
+      "left_arm": true,
+      "right_arm": true,
+      "left_leg": true,
+      "right_leg": true,
+      "upper_clothes": true,
+      "skirt": true,
+      "pants": true,
+      "dress": true,
+      "belt": true,
+      "shoe": true,
+      "bag": false,
+      "scarf": true,
+      "detail_method": "VITMatte",
+      "detail_erode": 12,
+      "detail_dilate": 6,
+      "black_point": 0.15,
+      "white_point": 0.99,
+      "process_detail": true,
+      "device": "cuda",
+      "max_megapixels": 2,
+      "image": [
+        "36",
+        0
+      ]
+    },
+    "class_type": "LayerMask: SegformerB2ClothesUltra",
+    "_meta": {
+      "title": "LayerMask: Segformer B2 Clothes Ultra"
+    }
+  },
+  "88": {
+    "inputs": {
+      "mask_grow": 25,
+      "mixed_precision": "fp16",
+      "seed": 951002375712206,
+      "steps": 50,
+      "cfg": 3,
+      "image": [
+        "36",
+        0
+      ],
+      "mask": [
+        "67",
+        1
+      ],
+      "refer_image": [
+        "102",
+        0
+      ]
+    },
+    "class_type": "CatVTONWrapper",
+    "_meta": {
+      "title": "CatVTON Wrapper"
+    }
+  },
+  "101": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "88",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "102": {
+    "inputs": {
+      "image": "selected_hanbok_image.png",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  }
+}

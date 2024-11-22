@@ -1,0 +1,379 @@
+{
+  "1": {
+    "inputs": {
+      "image": "test_api.jpg",
+      "upload": "image"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "2": {
+    "inputs": {
+      "threshold": 0.5,
+      "dilation": 10,
+      "crop_factor": 5,
+      "drop_size": 10,
+      "labels": "",
+      "bbox_detector": [
+        "5",
+        0
+      ],
+      "image": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "BboxDetectorSEGS",
+    "_meta": {
+      "title": "BBOX Detector (SEGS)"
+    }
+  },
+  "5": {
+    "inputs": {
+      "model_name": "segm/face_yolov8m-seg_60.pt"
+    },
+    "class_type": "UltralyticsDetectorProvider",
+    "_meta": {
+      "title": "UltralyticsDetectorProvider"
+    }
+  },
+  "9": {
+    "inputs": {
+      "segs": [
+        "60",
+        0
+      ]
+    },
+    "class_type": "ImpactDecomposeSEGS",
+    "_meta": {
+      "title": "Decompose (SEGS)"
+    }
+  },
+  "11": {
+    "inputs": {
+      "seg_elt": [
+        "9",
+        1
+      ]
+    },
+    "class_type": "ImpactFrom_SEG_ELT",
+    "_meta": {
+      "title": "From SEG_ELT"
+    }
+  },
+  "13": {
+    "inputs": {
+      "bbox": [
+        "11",
+        4
+      ]
+    },
+    "class_type": "ImpactFrom_SEG_ELT_bbox",
+    "_meta": {
+      "title": "From SEG_ELT bbox"
+    }
+  },
+  "26": {
+    "inputs": {
+      "width": [
+        "57",
+        0
+      ],
+      "height": [
+        "57",
+        0
+      ],
+      "x": [
+        "56",
+        0
+      ],
+      "y": [
+        "56",
+        1
+      ],
+      "image": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "ImageCrop",
+    "_meta": {
+      "title": "ImageCrop"
+    }
+  },
+  "56": {
+    "inputs": {
+      "left": [
+        "13",
+        0
+      ],
+      "top": [
+        "13",
+        1
+      ],
+      "right": [
+        "13",
+        2
+      ],
+      "bottom": [
+        "13",
+        3
+      ],
+      "crop_width": [
+        "57",
+        0
+      ],
+      "crop_height": [
+        "57",
+        0
+      ]
+    },
+    "class_type": "BBoxCrop",
+    "_meta": {
+      "title": "Bounding Box Crop Node"
+    }
+  },
+  "57": {
+    "inputs": {
+      "int": 700
+    },
+    "class_type": "Primitive integer [Crystools]",
+    "_meta": {
+      "title": "🪛 Primitive integer"
+    }
+  },
+  "58": {
+    "inputs": {
+      "model_name": "segm/hair_yolov8n-seg_60.pt"
+    },
+    "class_type": "UltralyticsDetectorProvider",
+    "_meta": {
+      "title": "UltralyticsDetectorProvider"
+    }
+  },
+  "59": {
+    "inputs": {
+      "threshold": 0.5,
+      "dilation": 10,
+      "crop_factor": 5,
+      "drop_size": 10,
+      "labels": "",
+      "bbox_detector": [
+        "58",
+        0
+      ],
+      "image": [
+        "1",
+        0
+      ]
+    },
+    "class_type": "BboxDetectorSEGS",
+    "_meta": {
+      "title": "BBOX Detector (SEGS)"
+    }
+  },
+  "60": {
+    "inputs": {
+      "segs1": [
+        "2",
+        0
+      ],
+      "segs2": [
+        "59",
+        0
+      ]
+    },
+    "class_type": "ImpactSEGSConcat",
+    "_meta": {
+      "title": "SEGS Concat"
+    }
+  },
+  "62": {
+    "inputs": {
+      "seed": 182258893933971,
+      "steps": 25,
+      "cfg": 5,
+      "sampler_name": "dpmpp_2s_ancestral",
+      "scheduler": "karras",
+      "denoise": 0.9,
+      "model": [
+        "73",
+        0
+      ],
+      "positive": [
+        "73",
+        1
+      ],
+      "negative": [
+        "73",
+        2
+      ],
+      "latent_image": [
+        "64",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "63": {
+    "inputs": {
+      "ckpt_name": "SDXL/realismEngineSDXL_v30VAE.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "64": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 2
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  },
+  "65": {
+    "inputs": {
+      "samples": [
+        "62",
+        0
+      ],
+      "vae": [
+        "63",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "66": {
+    "inputs": {
+      "instantid_file": "ip-adapter.bin"
+    },
+    "class_type": "InstantIDModelLoader",
+    "_meta": {
+      "title": "Load InstantID Model"
+    }
+  },
+  "68": {
+    "inputs": {
+      "images": [
+        "65",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "69": {
+    "inputs": {
+      "control_net_name": "instantid/diffusion_pytorch_model.safetensors"
+    },
+    "class_type": "ControlNetLoader",
+    "_meta": {
+      "title": "Load ControlNet Model"
+    }
+  },
+  "70": {
+    "inputs": {
+      "provider": "CPU"
+    },
+    "class_type": "InstantIDFaceAnalysis",
+    "_meta": {
+      "title": "InstantID Face Analysis"
+    }
+  },
+  "71": {
+    "inputs": {
+      "text": "korean, wearing suit and facing forward, over the shoulder shot, plain background, eye contact",
+      "clip": [
+        "63",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "72": {
+    "inputs": {
+      "text": "stock image, stock photo, text, sexual, magazine",
+      "clip": [
+        "63",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Prompt)"
+    }
+  },
+  "73": {
+    "inputs": {
+      "weight": 0.8,
+      "start_at": 0,
+      "end_at": 1,
+      "instantid": [
+        "66",
+        0
+      ],
+      "insightface": [
+        "70",
+        0
+      ],
+      "control_net": [
+        "69",
+        0
+      ],
+      "image": [
+        "78",
+        0
+      ],
+      "model": [
+        "63",
+        0
+      ],
+      "positive": [
+        "71",
+        0
+      ],
+      "negative": [
+        "72",
+        0
+      ]
+    },
+    "class_type": "ApplyInstantID",
+    "_meta": {
+      "title": "Apply InstantID"
+    }
+  },
+  "78": {
+    "inputs": {
+      "upscale_method": "lanczos",
+      "width": 1024,
+      "height": 1024,
+      "crop": "disabled",
+      "image": [
+        "26",
+        0
+      ]
+    },
+    "class_type": "ImageScale",
+    "_meta": {
+      "title": "Upscale Image"
+    }
+  }
+}
