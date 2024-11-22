@@ -29,7 +29,8 @@ miniconda3/
 sej_comfy/
 gradio/
 path/
-Jun/
+Jun/Fine_TT
+Jun/gguf_test
 
 .cache
 .config
